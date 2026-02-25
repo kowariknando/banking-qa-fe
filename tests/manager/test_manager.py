@@ -5,6 +5,7 @@ from pages.manager import add_customer_page
 from pages.manager.manager_page import ManagerPage
 from pages.manager.add_customer_page import AddCustomerPage
 from utils.data_generator import generate_random_string, generate_random_postcode
+from pages.manager.action_customer_page import ActionCustomerPage
 
 def navigate_to_bank_manager_page(page: Page, home_page: HomePage) -> ManagerPage:
     home_page.click_bank_manager_login()
@@ -49,3 +50,26 @@ def test_add_new_customer_successfully(page: Page, home_page: HomePage):
     )
     
     assert "Customer added successfully" in alert_text, f"The text in the pop up alert was: {alert_text}"
+
+@pytest.mark.regression
+@pytest.mark.manager
+def test_manager_can_delete_customer(page: Page, home_page: HomePage):
+    manager_page = navigate_to_bank_manager_page(page, home_page)
+    manager_page.navigate_to_add_customer_page()
+    add_customer_page = AddCustomerPage(page)
+    
+    first_name = generate_random_string(5).capitalize()
+    last_name = generate_random_string(7).capitalize()
+    postcode = generate_random_postcode()
+    
+    add_customer_page.add_new_customer(first_name, last_name, postcode)
+    
+    add_customer_page.customers_tab.click()
+    
+    customers_page = ActionCustomerPage(page)
+    customers_page.landing_action_customer_page()
+    
+    customers_page.search_customer(first_name)
+    customers_page.delete_customer(first_name)
+    
+    customers_page.verify_customer_not_in_list(first_name)

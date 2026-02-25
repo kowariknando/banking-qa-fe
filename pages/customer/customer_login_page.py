@@ -19,3 +19,9 @@ class CustomerLoginPage(BasePage):
 
     def click_login_button(self):
         self.submit_login_button.click()
+
+    def select_user_by_id(self, user_id: str):
+        self.user_dropdown.select_option(value=user_id)
+
+    def get_selected_user_text(self) -> str:
+        return self.user_dropdown.evaluate("el => el.options[el.selectedIndex].text")

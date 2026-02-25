@@ -15,9 +15,13 @@ class CustomerAccountPage(BasePage):
         self.deposit_tab = self.page.get_by_role("button", name="Deposit")
         self.withdrawl_tab = self.page.get_by_role("button", name="Withdrawl") # Note: Typo exists in the original website
 
-    def landing_customer_account_page(self):
+    def landing_welcome_customer_account_page(self, user_name: str):
         self.header.verify_header_with_logout()
-        expect(self.welcome_message).to_be_visible()
+        welcome_locator = self.page.get_by_text(f"Welcome {user_name} !!")
+        expect(welcome_locator).to_be_visible()
+
+    def landing_customer_account_page(self, user_name: str):
+        self.landing_welcome_customer_account_page(user_name)
         expect(self.account_dropdown).to_be_visible()
         expect(self.account_number_label).to_be_visible()
         expect(self.balance_label).to_be_visible()
