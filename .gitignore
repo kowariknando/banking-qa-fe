@@ -9,5 +9,5 @@ __pycache__/
 
 # Playwright & Test Reports
 test-results/
-report.html
+reports/
 trace.zip

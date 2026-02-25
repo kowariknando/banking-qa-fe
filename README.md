@@ -49,7 +49,7 @@ Run the 3 tests simultaneously (using 3 workers):
 `pytest tests/ -n 3 --headed`
 
 To execute the test suite and generate a standalone HTML report, run the following command in your terminal:
-`pytest --html=report.html --self-contained-html`
+`pytest --html=reports/report.html --self-contained-html`
 
 To run tests and capture a trace only if a test fails, use:
 `pytest --tracing=retain-on-failure`
