@@ -1,0 +1,9 @@
+{
+  "manager_tests": {
+    "default_customer": {
+      "first_name": "Dummy",
+      "last_name": "data",
+      "post_code": "123 456"
+    }
+  }
+}
