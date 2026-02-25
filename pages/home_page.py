@@ -10,7 +10,7 @@ class HomePage(BasePage):
         self.bank_manager_login_button = self.page.locator("button[ng-click='manager()']")
 
     def landing_home_page(self):
-        self.verify_header()
+        self.header.verify_header()
         expect(self.customer_login_button).to_be_visible()
         expect(self.bank_manager_login_button).to_be_visible()
     

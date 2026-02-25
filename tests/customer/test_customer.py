@@ -4,7 +4,6 @@ from pages.customer.customer_login_page import CustomerLoginPage
 from pages.customer.account_page import CustomerAccountPage
 from pages.home_page import HomePage
 
-
 def navigate_to_customer_login(page: Page, home_page: HomePage) -> CustomerLoginPage:
     home_page.click_customer_login()
     customer_login_page = CustomerLoginPage(page)
@@ -33,7 +32,7 @@ def test_login_with_existing_user(page: Page, home_page: HomePage):
 def test_from_customer_page_go_back_to_home_page(page: Page, home_page: HomePage):
     customer_login_page = navigate_to_customer_login(page, home_page)
     
-    customer_login_page.go_home_from_header()
+    customer_login_page.header.click_home()
     
     home_page.landing_home_page()
 

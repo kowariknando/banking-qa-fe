@@ -12,7 +12,7 @@ class ManagerPage(BasePage):
         self.customers_tab = self.page.get_by_role("button", name="Customers")
 
     def landing_manager_page(self):
-        self.verify_header()
+        self.header.verify_header()
         expect(self.add_customer_tab).to_be_visible()
         expect(self.open_account_tab).to_be_visible()
         expect(self.customers_tab).to_be_visible()

@@ -10,7 +10,7 @@ class CustomerLoginPage(BasePage):
         self.your_name_label = self.page.locator("label")
 
     def landing_customer_login_page(self):
-        self.verify_header()
+        self.header.verify_header()
         expect(self.your_name_label).to_have_text("Your Name :")
         expect(self.user_dropdown).to_be_visible()
 

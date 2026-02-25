@@ -16,7 +16,7 @@ class CustomerAccountPage(BasePage):
         self.withdrawl_tab = self.page.get_by_role("button", name="Withdrawl") # Note: Typo exists in the original website
 
     def landing_customer_account_page(self):
-        self.verify_header_with_logout()
+        self.header.verify_header_with_logout()
         expect(self.welcome_message).to_be_visible()
         expect(self.account_dropdown).to_be_visible()
         expect(self.account_number_label).to_be_visible()

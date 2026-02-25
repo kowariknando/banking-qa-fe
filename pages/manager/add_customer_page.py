@@ -18,7 +18,7 @@ class AddCustomerPage(BasePage):
         self.submit_button = self.page.get_by_role("form").get_by_role("button", name="Add Customer")
 
     def landing_add_customer_page(self):
-        self.verify_header()
+        self.header.verify_header()
         expect(self.add_customer_tab).to_be_visible()
         expect(self.first_name_label).to_be_visible()
         expect(self.first_name_input).to_be_visible()

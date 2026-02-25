@@ -13,7 +13,7 @@ class DepositPage(BasePage):
 
 
     def landing_deposit_page(self):
-        self.verify_header_with_logout()
+        self.header.verify_header_with_logout()
         expect(self.deposit_tab_button).to_be_visible()
         expect(self.amount_label).to_be_visible()
         expect(self.amount_input).to_be_visible()
