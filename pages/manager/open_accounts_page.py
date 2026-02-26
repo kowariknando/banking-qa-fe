@@ -1,33 +1,27 @@
+from playwright.sync_api import expect
 from pages.base_page import BasePage
 
-class AccountPage(BasePage):
-
+class OpenAccountPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.deposit_menu_button = "button[ng-click='deposit()']"
-        self.withdraw_menu_button = "button[ng-click='withdrawl()']" # Using the exact typo from the web
-        self.amount_input = "input[ng-model='amount']"
-        self.submit_action_button = "button[type='submit']"
-        self.success_message = "span[ng-show='message']"
-        self.account_info_values = "strong.ng-binding"
+        self.customer_dropdown = self.page.locator("#userSelect")
+        self.currency_dropdown = self.page.locator("#currency")
+        self.process_button = self.page.locator("button[type='submit']")
 
-    
-    def go_to_deposit(self):
-        self.click_element(self.deposit_menu_button)
-        self.page.get_by_text("Amount to be Deposited").wait_for()
+    def landing_open_account_page(self):
+        self.header.verify_header()
+        expect(self.customer_dropdown).to_be_visible()
+        expect(self.currency_dropdown).to_be_visible()
+        expect(self.process_button).to_be_visible()
+
+    def process_new_account(self, customer_id: str, currency: str = "Dollar") -> str:
+        self.customer_dropdown.select_option(value=customer_id)
+        self.currency_dropdown.select_option(label=currency)
         
-    def go_to_withdraw(self):
-        self.click_element(self.withdraw_menu_button)
-        self.page.get_by_text("Amount to be Withdrawn").wait_for()
+        alert_text = []
+        self.page.on("dialog", lambda dialog: (alert_text.append(dialog.message), dialog.accept()))
         
-    def enter_amount(self, amount: str):
-        self.fill_text(self.amount_input, amount)
+        self.process_button.click()
+        self.page.wait_for_timeout(500) 
         
-    def submit_transaction(self):
-        self.click_element(self.submit_action_button)
-        
-    def get_transaction_message(self) -> str:
-        return self.get_text(self.success_message)
-        
-    def get_balance(self) -> str:
-        return self.page.locator(self.account_info_values).nth(1).inner_text()
+        return alert_text[0] if alert_text else ""
